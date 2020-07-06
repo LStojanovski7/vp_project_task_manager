@@ -1,10 +1,13 @@
 C:\Users\PC\Desktop\project_vp\vp_task_manager\bin\Debug\vp_task_manager.exe.config
 C:\Users\PC\Desktop\project_vp\vp_task_manager\bin\Debug\vp_task_manager.exe
 C:\Users\PC\Desktop\project_vp\vp_task_manager\bin\Debug\vp_task_manager.pdb
-C:\Users\PC\Desktop\project_vp\vp_task_manager\obj\Debug\vp_task_manager.csprojAssemblyReference.cache
 C:\Users\PC\Desktop\project_vp\vp_task_manager\obj\Debug\vp_task_manager.Form1.resources
 C:\Users\PC\Desktop\project_vp\vp_task_manager\obj\Debug\vp_task_manager.Properties.Resources.resources
 C:\Users\PC\Desktop\project_vp\vp_task_manager\obj\Debug\vp_task_manager.csproj.GenerateResource.cache
 C:\Users\PC\Desktop\project_vp\vp_task_manager\obj\Debug\vp_task_manager.csproj.CoreCompileInputs.cache
 C:\Users\PC\Desktop\project_vp\vp_task_manager\obj\Debug\vp_task_manager.exe
 C:\Users\PC\Desktop\project_vp\vp_task_manager\obj\Debug\vp_task_manager.pdb
+C:\Users\PC\Desktop\project_vp\vp_task_manager\obj\Debug\vp_task_manager.csproj.CopyComplete
+C:\Users\PC\Desktop\project_vp\vp_task_manager\bin\Debug\System.Management.dll
+C:\Users\PC\Desktop\project_vp\vp_task_manager\obj\Debug\vp_task_manager.csprojAssemblyReference.cache
+C:\Users\PC\Desktop\project_vp\vp_task_manager\obj\Debug\vp_task_manager.Run.resources

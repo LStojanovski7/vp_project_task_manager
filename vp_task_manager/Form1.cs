@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
-using vp_task_manager.models;
+using vp_task_manager.services;
 
 namespace vp_task_manager
 {
@@ -26,18 +26,41 @@ namespace vp_task_manager
 
         private void btnEndTask_Click(object sender, EventArgs e)
         {
+            var proc = lstProcesses.SelectedItems[0];
 
-            //TODO: implement
+            string name = proc.SubItems[1].Text;
+
+            try
+            {
+                Process process = Process.GetProcessesByName(name).FirstOrDefault();
+
+                process.Kill();
+
+                RefreshList();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                RefreshList();
+            }
+            
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             RefreshList();
+
+            UpdateProcessCount();
         }
 
         private void refreshNowToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             RefreshList();
+
+            UpdateProcessCount();
         }
 
         #region methods
@@ -70,10 +93,19 @@ namespace vp_task_manager
                 {
                     item.SubItems.Add("Real time");
                 }
+                else
+                {
+                    item.SubItems.Add(" ");
+                }
+
+                string owner = Services.ProcessOwner(proc.Id);
+
+                item.SubItems.Add(owner);
 
                 lstProcesses.Items.Add(item);
-                proc.
             }
+
+            UpdateProcessCount();
         }
 
         private void RefreshList()
@@ -86,6 +118,40 @@ namespace vp_task_manager
             GetProcesses();
         }
 
+        private void UpdateProcessCount()
+        {
+            processCount.Text = "Procesess: " + lstProcesses.Items.Count;
+        }
+
         #endregion
+
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("This projects is made for the purposes of the subject 'Visual Programming' \n\n");
+            sb.Append("Author: Lazar Stojanovski 153116 \n");
+            sb.Append("Date: 06.07.2020 \n");
+            sb.Append("Faculty of Computer Science and Engineering");
+
+            MessageBox.Show(sb.ToString(), "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void btnNewTask_Click(object sender, EventArgs e)
+        {
+            using(Run runForm = new Run())
+            {
+                if(runForm.ShowDialog() == DialogResult.OK)
+                {
+                    RefreshList();
+                }
+            }
+        }
+
+        private void newTaskToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
