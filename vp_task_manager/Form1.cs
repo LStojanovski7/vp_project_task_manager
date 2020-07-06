@@ -45,11 +45,6 @@ namespace vp_task_manager
             {
                 MessageBox.Show(ex.Message, "Error ", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            finally
-            {
-                RefreshList();
-            }
-            
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -154,9 +149,11 @@ namespace vp_task_manager
             {
                 if(runForm.ShowDialog() == DialogResult.OK)
                 {
-                    RefreshList();
+                    
                 }
             }
+
+            RefreshList();
         }
 
         private void newTaskToolStripMenuItem_Click(object sender, EventArgs e)
@@ -165,9 +162,10 @@ namespace vp_task_manager
             {
                 if (runForm.ShowDialog() == DialogResult.OK)
                 {
-                    RefreshList();
                 }
             }
+
+            RefreshList();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
