@@ -101,7 +101,14 @@ namespace vp_task_manager
                     item.SubItems.Add(" ");
                 }
 
-                string owner = Services.ProcessOwner(proc.Id);
+                //string owner = Services.ProcessOwner(proc.Id);
+
+                string owner = Services.GetProcessUser(proc);
+
+                if (string.IsNullOrEmpty(owner))
+                {
+                    owner = "System";
+                }
 
                 item.SubItems.Add(owner);
 
@@ -178,6 +185,9 @@ namespace vp_task_manager
 
             lblCPUPerc.Text = string.Format("{0:0.00}%", fCpu);
             lblRAMperc.Text = string.Format("{0:0.00}%", fRam);
+
+            perfChart.Series["CPU"].Points.AddY(fCpu);
+            perfChart.Series["RAM"].Points.AddY(fRam);
         }
     }
 }
