@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.btnEndTask = new System.Windows.Forms.Button();
             this.btnNewTask = new System.Windows.Forms.Button();
@@ -47,11 +48,23 @@
             this.priority = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.username = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPerformance = new System.Windows.Forms.TabPage();
+            this.progRAM = new System.Windows.Forms.ProgressBar();
+            this.lblRAMperc = new System.Windows.Forms.Label();
+            this.lblCPUPerc = new System.Windows.Forms.Label();
+            this.progCPU = new System.Windows.Forms.ProgressBar();
+            this.lblRAM = new System.Windows.Forms.Label();
+            this.lblCPU = new System.Windows.Forms.Label();
             this.processCount = new System.Windows.Forms.Label();
+            this.perfCPU = new System.Diagnostics.PerformanceCounter();
+            this.perfRAM = new System.Diagnostics.PerformanceCounter();
+            this.timer = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabTabs.SuspendLayout();
             this.tabProcess.SuspendLayout();
+            this.tabPerformance.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.perfCPU)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.perfRAM)).BeginInit();
             this.SuspendLayout();
             // 
             // btnEndTask
@@ -98,7 +111,7 @@
             // newTaskToolStripMenuItem
             // 
             this.newTaskToolStripMenuItem.Name = "newTaskToolStripMenuItem";
-            this.newTaskToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newTaskToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.newTaskToolStripMenuItem.Text = "New task";
             this.newTaskToolStripMenuItem.Click += new System.EventHandler(this.newTaskToolStripMenuItem_Click);
             // 
@@ -107,6 +120,7 @@
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // viewToolStripMenuItem
             // 
@@ -203,6 +217,12 @@
             // 
             // tabPerformance
             // 
+            this.tabPerformance.Controls.Add(this.progRAM);
+            this.tabPerformance.Controls.Add(this.lblRAMperc);
+            this.tabPerformance.Controls.Add(this.lblCPUPerc);
+            this.tabPerformance.Controls.Add(this.progCPU);
+            this.tabPerformance.Controls.Add(this.lblRAM);
+            this.tabPerformance.Controls.Add(this.lblCPU);
             this.tabPerformance.Location = new System.Drawing.Point(4, 22);
             this.tabPerformance.Name = "tabPerformance";
             this.tabPerformance.Padding = new System.Windows.Forms.Padding(3);
@@ -210,6 +230,58 @@
             this.tabPerformance.TabIndex = 1;
             this.tabPerformance.Text = "Performance";
             this.tabPerformance.UseVisualStyleBackColor = true;
+            // 
+            // progRAM
+            // 
+            this.progRAM.Location = new System.Drawing.Point(106, 148);
+            this.progRAM.Name = "progRAM";
+            this.progRAM.Size = new System.Drawing.Size(316, 23);
+            this.progRAM.TabIndex = 5;
+            // 
+            // lblRAMperc
+            // 
+            this.lblRAMperc.AutoSize = true;
+            this.lblRAMperc.Location = new System.Drawing.Point(428, 157);
+            this.lblRAMperc.Name = "lblRAMperc";
+            this.lblRAMperc.Size = new System.Drawing.Size(24, 13);
+            this.lblRAMperc.TabIndex = 4;
+            this.lblRAMperc.Text = "0 %";
+            // 
+            // lblCPUPerc
+            // 
+            this.lblCPUPerc.AutoSize = true;
+            this.lblCPUPerc.Location = new System.Drawing.Point(428, 29);
+            this.lblCPUPerc.Name = "lblCPUPerc";
+            this.lblCPUPerc.Size = new System.Drawing.Size(24, 13);
+            this.lblCPUPerc.TabIndex = 3;
+            this.lblCPUPerc.Text = "0 %";
+            // 
+            // progCPU
+            // 
+            this.progCPU.Location = new System.Drawing.Point(106, 21);
+            this.progCPU.Name = "progCPU";
+            this.progCPU.Size = new System.Drawing.Size(316, 23);
+            this.progCPU.TabIndex = 2;
+            // 
+            // lblRAM
+            // 
+            this.lblRAM.AutoSize = true;
+            this.lblRAM.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRAM.Location = new System.Drawing.Point(15, 152);
+            this.lblRAM.Name = "lblRAM";
+            this.lblRAM.Size = new System.Drawing.Size(69, 20);
+            this.lblRAM.TabIndex = 1;
+            this.lblRAM.Text = "Memory";
+            // 
+            // lblCPU
+            // 
+            this.lblCPU.AutoSize = true;
+            this.lblCPU.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCPU.Location = new System.Drawing.Point(15, 24);
+            this.lblCPU.Name = "lblCPU";
+            this.lblCPU.Size = new System.Drawing.Size(44, 20);
+            this.lblCPU.TabIndex = 0;
+            this.lblCPU.Text = "CPU";
             // 
             // processCount
             // 
@@ -219,6 +291,22 @@
             this.processCount.Size = new System.Drawing.Size(62, 13);
             this.processCount.TabIndex = 7;
             this.processCount.Text = "Processes: ";
+            // 
+            // perfCPU
+            // 
+            this.perfCPU.CategoryName = "Processor Information";
+            this.perfCPU.CounterName = "% Processor Time";
+            this.perfCPU.InstanceName = "_Total";
+            // 
+            // perfRAM
+            // 
+            this.perfRAM.CategoryName = "Memory";
+            this.perfRAM.CounterName = "% Committed Bytes In Use";
+            // 
+            // timer
+            // 
+            this.timer.Interval = 1000;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // Form1
             // 
@@ -240,6 +328,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabTabs.ResumeLayout(false);
             this.tabProcess.ResumeLayout(false);
+            this.tabPerformance.ResumeLayout(false);
+            this.tabPerformance.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.perfCPU)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.perfRAM)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -265,6 +357,15 @@
         public System.Windows.Forms.ColumnHeader id;
         private System.Windows.Forms.ColumnHeader username;
         private System.Windows.Forms.Label processCount;
+        private System.Windows.Forms.Label lblCPU;
+        private System.Windows.Forms.ProgressBar progRAM;
+        private System.Windows.Forms.Label lblRAMperc;
+        private System.Windows.Forms.Label lblCPUPerc;
+        private System.Windows.Forms.ProgressBar progCPU;
+        private System.Windows.Forms.Label lblRAM;
+        private System.Diagnostics.PerformanceCounter perfCPU;
+        private System.Diagnostics.PerformanceCounter perfRAM;
+        private System.Windows.Forms.Timer timer;
     }
 }
 

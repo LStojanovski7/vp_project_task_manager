@@ -14,9 +14,12 @@ namespace vp_task_manager
 {
     public partial class Form1 : Form
     {
+
         public Form1()
         {
             InitializeComponent();
+
+            timer.Start();
         }
 
         private void Form1_Load_1(object sender, EventArgs e)
@@ -151,7 +154,30 @@ namespace vp_task_manager
 
         private void newTaskToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            using (Run runForm = new Run())
+            {
+                if (runForm.ShowDialog() == DialogResult.OK)
+                {
+                    RefreshList();
+                }
+            }
+        }
 
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.Application.Exit();
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            float fCpu = perfCPU.NextValue();
+            float fRam = perfRAM.NextValue();
+
+            progCPU.Value = (int)fCpu;
+            progRAM.Value = (int)fRam;
+
+            lblCPUPerc.Text = string.Format("{0:0.00}%", fCpu);
+            lblRAMperc.Text = string.Format("{0:0.00}%", fRam);
         }
     }
 }
